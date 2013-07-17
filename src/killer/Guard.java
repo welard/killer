@@ -12,12 +12,15 @@ import org.ghostbot.script.listeners.MessageListener;
 import org.ghostbot.script.listeners.PaintListener;
 import org.ghostbot.script.methods.Bank;
 
+import org.ghostbot.script.methods.Calculations;
+import org.ghostbot.script.methods.GroundItems;
 import org.ghostbot.script.methods.Inventory;
 import org.ghostbot.script.methods.NPCs;
 import org.ghostbot.script.methods.Players;
 import org.ghostbot.script.methods.Skill;
 import org.ghostbot.script.methods.Tab;
 
+import org.ghostbot.script.wrappers.GroundItem;
 import org.ghostbot.script.wrappers.NPC;
 import org.ghostbot.script.wrappers.Tile;
 
@@ -35,7 +38,7 @@ public class Guard extends Script implements PaintListener, MessageListener {
 	private static final int HEALTH = 15;
 	//for on start
 	private int [] monsterChosen = ids.goblinid;
-	private int foodChosen = ids.Salmon;
+	private int foodChosen = ids.beef;
 	 Tile locationChosen = ids.GoblinVillage;
 
 	
@@ -73,13 +76,19 @@ public int loop() {
    }
 
 private void atackgob() {
+	for(GroundItem i : GroundItems.getAll()) {
+   	 for(int id : ids.lootid) {
+   	 if(i.getID() == id) {
+   	 i.interact("Take");
+   	 }
+   	 }
+    }
 NPC t = NPCs.getNearest(monsterChosen);
 if (t != null && t.isOnScreen()) {
+	if(Calculations.distanceBetween(Players.getLocal().getLocation(), t.getLocation())<5)
 	if (t.interact("attack goblin"))
 	sleep(1000,1500);
-	{
-		
-		}
+	
 	}
  }
 

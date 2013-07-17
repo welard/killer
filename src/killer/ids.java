@@ -32,6 +32,7 @@ public class ids {
 	public static int MantaRay = 391;
 	public static int Cavefish = 15266;
 	public static int Rocktail = 15272;
+	public static int beef = 2142;
 	
 
 	//loot
